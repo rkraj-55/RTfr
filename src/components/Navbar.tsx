@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import logo from './assets/logo.png';  // <-- import your logo here
 
 const services = [
   { name: 'Social Media Marketing', path: '/services/social-media-marketing' },
@@ -23,24 +24,18 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Refs for detecting outside clicks on services dropdown
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const servicesButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Toggle main menu (mobile)
   const toggleMenu = () => setIsOpen(prev => !prev);
-
-  // Toggle services submenu
   const toggleServices = () => setServicesOpen(prev => !prev);
 
-  // Scroll effect for navbar background
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close services dropdown on outside click (desktop)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -62,19 +57,15 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [servicesOpen]);
 
-  // Lock scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
   }, [isOpen]);
 
-  // Helper: smooth scroll for sections (works with React Router)
   const smoothScrollTo = (id: string) => {
-    // If already on homepage, just scroll
     if (location.pathname === '/') {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // Navigate to home then scroll after short delay
       navigate('/');
       setTimeout(() => {
         const el = document.getElementById(id);
@@ -83,35 +74,30 @@ const Navbar: React.FC = () => {
     }
   };
 
-  // Scroll smoothly to Contact section and close menu
   const scrollToContact = () => {
     smoothScrollTo('contact');
     setIsOpen(false);
     setServicesOpen(false);
   };
 
-  // Scroll to About
   const scrollToAbout = () => {
     smoothScrollTo('about');
     setIsOpen(false);
     setServicesOpen(false);
   };
 
-  // Scroll to Pricing
   const scrollToPricing = () => {
     smoothScrollTo('pricing');
     setIsOpen(false);
     setServicesOpen(false);
   };
 
-  // Scroll to Portfolio
   const scrollToPortfolio = () => {
     smoothScrollTo('portfolio');
     setIsOpen(false);
     setServicesOpen(false);
   };
 
-  // Scroll to Clients
   const scrollToClients = () => {
     smoothScrollTo('clients');
     setIsOpen(false);
@@ -120,22 +106,37 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? 'glass-effect shadow-glass py-2' : 'bg-transparent py-4'
-      }`}
+      className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'glass-effect shadow-glass py-2' : 'bg-transparent py-4'
+        }`}
       role="navigation"
       aria-label="Primary Navigation"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center" aria-label="Homepage" onClick={() => setIsOpen(false)}>
-            <div className="h-10 w-10 relative">
+          <Link
+            to="/"
+            className="flex items-center gap-3"
+            aria-label="Homepage"
+            onClick={() => setIsOpen(false)}
+          >
+            {/* Container with glowing gradient background and border */}
+            <div className="relative h-12 w-12 rounded-lg">
+              {/* Gradient glow background */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-lg animate-pulse"></div>
-              <div className="absolute inset-0.5 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-2xl font-bold gradient-text">N</span>
+
+              {/* White border container */}
+              <div className="absolute inset-0.5 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                <img
+                  src={logo}
+                  alt="Company Logo"
+                  className="h-10 w-auto object-contain"
+                  loading="lazy"
+                  draggable={false}
+                />
               </div>
             </div>
           </Link>
+
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
@@ -143,7 +144,6 @@ const Navbar: React.FC = () => {
               About
             </button>
 
-            {/* Services Dropdown */}
             <div className="relative">
               <button
                 ref={servicesButtonRef}
@@ -156,20 +156,16 @@ const Navbar: React.FC = () => {
               >
                 Services
                 <ChevronDown
-                  className={`h-4 w-4 transform transition-transform ${
-                    servicesOpen ? 'rotate-180' : 'group-hover:rotate-180'
-                  }`}
+                  className={`h-4 w-4 transform transition-transform ${servicesOpen ? 'rotate-180' : 'group-hover:rotate-180'
+                    }`}
                 />
               </button>
 
               <div
                 ref={servicesDropdownRef}
                 id="services-menu"
-                className={`absolute top-full left-0 mt-2 w-64 glass-effect rounded-lg shadow-glass overflow-hidden border border-white/20 services-dropdown transition-all duration-300 ${
-                  servicesOpen
-                    ? 'opacity-100 visible max-h-screen'
-                    : 'opacity-0 invisible max-h-0'
-                }`}
+                className={`absolute top-full left-0 mt-2 w-64 glass-effect rounded-lg shadow-glass overflow-hidden border border-white/20 services-dropdown transition-all duration-300 ${servicesOpen ? 'opacity-100 visible max-h-screen' : 'opacity-0 invisible max-h-0'
+                  }`}
                 role="menu"
                 aria-label="Services submenu"
               >
@@ -198,7 +194,6 @@ const Navbar: React.FC = () => {
               Clients
             </button>
 
-            {/* Contact link replaced with button for smooth scroll */}
             <button
               onClick={scrollToContact}
               className="nav-link bg-transparent border-none cursor-pointer"
@@ -209,7 +204,6 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Desktop Book Free Strategy Call button */}
           <button
             onClick={scrollToContact}
             className="hidden md:flex items-center px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all duration-300 border border-white/20 shadow-glass"
@@ -219,7 +213,6 @@ const Navbar: React.FC = () => {
             Book Free Strategy Call
           </button>
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden text-white hover:text-accent transition-colors"
             onClick={toggleMenu}
@@ -235,9 +228,8 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       <div
         id="mobile-menu"
-        className={`md:hidden transition-all duration-500 overflow-hidden ${
-          isOpen ? 'max-h-screen glass-effect border-t border-white/20' : 'max-h-0'
-        }`}
+        className={`md:hidden transition-all duration-500 overflow-hidden ${isOpen ? 'max-h-screen glass-effect border-t border-white/20' : 'max-h-0'
+          }`}
       >
         <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
           <button
@@ -252,7 +244,6 @@ const Navbar: React.FC = () => {
             About
           </button>
 
-          {/* Mobile Services Menu */}
           <div>
             <button
               className="text-white hover:text-accent py-2 border-b border-white/10 w-full text-left flex items-center justify-between"
@@ -271,9 +262,8 @@ const Navbar: React.FC = () => {
 
             <div
               id="mobile-services-menu"
-              className={`transition-all duration-300 overflow-hidden ${
-                servicesOpen ? 'max-h-screen' : 'max-h-0'
-              }`}
+              className={`transition-all duration-300 overflow-hidden ${servicesOpen ? 'max-h-screen' : 'max-h-0'
+                }`}
               role="menu"
               aria-label="Mobile Services submenu"
             >
@@ -329,7 +319,6 @@ const Navbar: React.FC = () => {
             Clients
           </button>
 
-          {/* Contact replaced with button */}
           <button
             onClick={() => {
               scrollToContact();
@@ -342,7 +331,6 @@ const Navbar: React.FC = () => {
             Contact
           </button>
 
-          {/* Mobile Book Free Strategy Call button */}
           <button
             onClick={() => {
               scrollToContact();

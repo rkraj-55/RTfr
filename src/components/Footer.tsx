@@ -7,6 +7,7 @@ import {
   MapPinIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
+import logo from './assets/logo.svg';  // <-- import your logo here
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -28,19 +29,35 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-4">
             <Link
               to="/"
-              className="flex items-center gap-2 mb-6 group"
+              className="flex items-center gap-4 mb-6 group"
               aria-label="Navigate to homepage"
             >
-              <div className="relative h-10 w-10">
+              {/* Container with glowing border */}
+              <div className="relative h-[100px] w-[100px] rounded-lg">
+                {/* Gradient glow background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-lg animate-pulse"></div>
-                <div className="absolute inset-0.5 bg-dark rounded-lg flex items-center justify-center">
-                  <GlobeAltIcon className="h-6 w-6 text-white group-hover:text-accent transition-colors" />
+
+                {/* White border container */}
+                <div className="absolute inset-1 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                  <img
+                    src={logo}
+                    alt="Nextorra Logo"
+                    className="h-[92px] w-[92px] object-contain select-none"
+                    draggable={false}
+                    loading="lazy"
+                  />
                 </div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent select-none">
+
+              <span
+                className="text-4xl font-bold bg-gradient-to-r from-white via-indigo-500 to-cyan-400 bg-clip-text text-transparent select-none"
+              >
                 Nextorra
               </span>
+
+
             </Link>
+
 
             <p className="text-gray-300 mb-8 max-w-md">
               Empowering businesses with innovative digital solutions that
