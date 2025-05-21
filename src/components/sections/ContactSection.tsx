@@ -38,10 +38,10 @@ const ContactSection: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate form
+
+    // Validate required fields
     if (!formData.name || !formData.email || !formData.message) {
       setFormStatus({
         submitted: true,
@@ -50,22 +50,39 @@ const ContactSection: React.FC = () => {
       });
       return;
     }
-    
-    // Simulate form submission
-    setFormStatus({
-      submitted: true,
-      error: false,
-      message: 'Thank you! Your message has been sent successfully. We will get back to you shortly.'
-    });
-    
-    // Reset form after successful submission
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
+
+    try {
+      const response = await fetch('https://formspree.io/f/mqaqoapn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setFormStatus({
+          submitted: true,
+          error: false,
+          message: 'Thank you! Your message has been sent successfully. We will get back to you shortly.'
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message.');
+      }
+    } catch (error) {
+      setFormStatus({
+        submitted: true,
+        error: true,
+        message: 'Oops! Something went wrong. Please try again later.'
+      });
+    }
   };
 
   return (
@@ -90,9 +107,9 @@ const ContactSection: React.FC = () => {
                   <div>
                     <h4 className="font-medium mb-1">Our Location</h4>
                     <p className="text-gray-300">
-                      123 Business Avenue<br />
-                      Mumbai, Maharashtra 400001
+                      Remote Service - Based in Jamshedpur,Jharkhand
                     </p>
+                    <p className="text-gray-400 italic text-sm">(We operate remotely)</p>
                   </div>
                 </div>
                 
@@ -113,8 +130,8 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Call Us</h4>
-                    <p className="text-gray-300">+91 9876543210</p>
-                    <p className="text-gray-300">+91 9876543211</p>
+                    <p className="text-gray-300">+91 8434237052</p>
+                    <p className="text-gray-300">+91 8434237049</p>
                   </div>
                 </div>
               </div>
@@ -122,6 +139,7 @@ const ContactSection: React.FC = () => {
               <div className="mt-8">
                 <h4 className="font-medium mb-4">Follow Us</h4>
                 <div className="flex gap-4">
+                  {/* Social icons unchanged */}
                   <a href="#" className="bg-white/20 p-2.5 rounded-full hover:bg-white/30 transition-colors">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
@@ -129,17 +147,7 @@ const ContactSection: React.FC = () => {
                   </a>
                   <a href="#" className="bg-white/20 p-2.5 rounded-full hover:bg-white/30 transition-colors">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" />
-                    </svg>
-                  </a>
-                  <a href="#" className="bg-white/20 p-2.5 rounded-full hover:bg-white/30 transition-colors">
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </a>
-                  <a href="#" className="bg-white/20 p-2.5 rounded-full hover:bg-white/30 transition-colors">
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                      <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.023.058-1.351.058-3.807v-.468c0-2.456-.01-2.784-.058-3.807-.045-.975-.207-1.504-.344-1.857-.182-.466-.398-.8-.748-1.15a2.634 2.634 0 00-1.15-.748c-.353-.137-.882-.3-1.858-.344-1.042-.048-1.363-.058-3.96-.058zm1.29 3.23a3.725 3.725 0 110 7.45 3.725 3.725 0 010-7.45zm0 1.8a1.925 1.925 0 100 3.85 1.925 1.925 0 000-3.85zm3.82-2.89a.878.878 0 11-1.756 0 .878.878 0 011.756 0z" />
                     </svg>
                   </a>
                 </div>
@@ -150,94 +158,85 @@ const ContactSection: React.FC = () => {
           {/* Contact Form - 3 columns */}
           <div className="lg:col-span-3 animate-on-scroll">
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-lg">
-              <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
-              
-              {formStatus.submitted && (
-                <div className={`p-4 rounded-md mb-6 ${formStatus.error ? 'bg-red-500/20' : 'bg-green-500/20'}`}>
-                  {formStatus.message}
+              <h3 className="text-2xl font-bold mb-6">Contact Us</h3>
+              <form onSubmit={handleSubmit} noValidate>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name *"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="p-3 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email *"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="p-3 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
                 </div>
-              )}
-              
-              <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="john@example.com"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="+91 9876543210"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium mb-2">Service Interested In</label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
-                    >
-                      <option value="">Select a service</option>
-                      {services.map((service, index) => (
-                        <option key={index} value={service}>{service}</option>
-                      ))}
-                    </select>
-                  </div>
+
+                <div className="mt-4">
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full p-3 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
                 </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message *</label>
+
+                <div className="mt-4">
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    className="w-full p-3 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select Service</option>
+                    {services.map((service) => (
+                      <option key={service} value={service}>
+                        {service}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="mt-4">
                   <textarea
-                    id="message"
                     name="message"
+                    placeholder="Your Message *"
+                    rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    rows={5}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-light"
-                    placeholder="Tell us about your project or requirements..."
                     required
-                  ></textarea>
+                    className="w-full p-3 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
                 </div>
-                
-                <button 
-                  type="submit" 
-                  className="btn bg-white text-primary hover:bg-gray-100 transition-all flex items-center justify-center gap-2"
+
+                <button
+                  type="submit"
+                  className="mt-6 w-full flex items-center justify-center gap-3 bg-primary px-5 py-3 rounded font-semibold text-white hover:bg-primary-dark transition"
                 >
-                  Send Message <Send className="h-4 w-4" />
+                  Send Message
+                  <Send className="h-5 w-5" />
                 </button>
+
+                {formStatus.submitted && (
+                  <p
+                    className={`mt-4 text-center ${
+                      formStatus.error ? 'text-red-500' : 'text-green-400'
+                    }`}
+                  >
+                    {formStatus.message}
+                  </p>
+                )}
               </form>
             </div>
           </div>

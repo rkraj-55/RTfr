@@ -1,37 +1,44 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, Clock, Award, Package, ArrowRight } from 'lucide-react';
+import {
+  ChartBarIcon,
+  StarIcon,
+  BoltIcon,
+  Squares2X2Icon,
+  ArrowRightIcon,
+} from '@heroicons/react/24/outline';
 
 const reasons = [
   {
-    icon: <BarChart3 className="h-10 w-10" />,
+    icon: <ChartBarIcon className="h-10 w-10" />,
     title: 'Data-Driven Strategies',
     description: 'We analyze real-time metrics to optimize campaigns for maximum ROI and performance.',
     stats: '200%',
-    statsLabel: 'Average ROI Increase'
+    statsLabel: 'Average ROI Increase',
   },
   {
-    icon: <Award className="h-10 w-10" />,
+    icon: <StarIcon className="h-10 w-10" />,
     title: 'Affordable Solutions',
     description: 'Flexible plans tailored to your business needs, ensuring maximum value for your investment.',
     stats: '98%',
-    statsLabel: 'Client Satisfaction'
+    statsLabel: 'Client Satisfaction',
   },
   {
-    icon: <Clock className="h-10 w-10" />,
+    icon: <BoltIcon className="h-10 w-10" />,
     title: 'Fast Implementation',
     description: 'Quick implementation with measurable results in days, not months.',
     stats: '48hrs',
-    statsLabel: 'Average Setup Time'
+    statsLabel: 'Average Setup Time',
   },
   {
-    icon: <Package className="h-10 w-10" />,
+    icon: <Squares2X2Icon className="h-10 w-10" />,
     title: 'Complete Digital Suite',
     description: 'From strategy to execution, we handle all aspects of your digital presence.',
     stats: '10+',
-    statsLabel: 'Integrated Services'
-  }
+    statsLabel: 'Integrated Services',
+  },
 ];
+
 
 const WhyChooseUs: React.FC = () => {
   return (
@@ -90,7 +97,7 @@ const WhyChooseUs: React.FC = () => {
                       whileHover={{ x: 5 }}
                       className="p-2 rounded-full bg-primary/10 text-primary"
                     >
-                      <ArrowRight className="h-5 w-5" />
+                      <ArrowRightIcon className="h-5 w-5" />
                     </motion.div>
                   </div>
                 </div>
@@ -111,7 +118,7 @@ const WhyChooseUs: React.FC = () => {
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-full hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group"
           >
             Start Your Digital Journey
-            <ArrowRight className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+            <ArrowRightIcon className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
       </div>

@@ -82,21 +82,22 @@ const PricingSection: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`relative group ${plan.popular ? 'md:-mt-4 md:mb-4' : ''}`}
             >
-              <div className={`glass-effect rounded-xl p-8 h-full border transition-all duration-300 relative overflow-hidden ${
+              <div className={`glass-effect rounded-xl p-8 pt-12 h-full border transition-all duration-300 relative overflow-visible ${
                 plan.popular 
                   ? 'border-primary shadow-glow' 
                   : 'border-white/20 group-hover:border-primary/20'
               }`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+                {/* Moved badge inside card container, near top */}
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-primary to-accent text-white text-sm font-medium px-4 py-1 rounded-full flex items-center gap-1">
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                    <div className="bg-gradient-to-r from-primary to-accent text-white text-sm font-medium px-4 py-1 rounded-full flex items-center gap-1 shadow-lg">
                       <Sparkles className="h-4 w-4" />
                       Most Popular
                     </div>
                   </div>
                 )}
+
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative">
                   <h3 className="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>

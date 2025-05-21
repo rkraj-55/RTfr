@@ -59,10 +59,10 @@ const AboutSection: React.FC = () => {
               <div className="text-white">
                 <div className="flex items-center gap-3 mb-2">
                   <Rocket className="h-6 w-6 text-accent" />
-                  <p className="text-xl font-semibold">Success Rate</p>
+                  <p className="text-xl font-semibold">Eager to Grow</p>
                 </div>
-                <p className="text-3xl font-bold mb-1">98%</p>
-                <p className="text-sm opacity-80">Client Satisfaction</p>
+                <p className="text-3xl font-bold mb-1">Focused on You</p>
+                <p className="text-sm opacity-80">Client Satisfaction Matters ❤️</p>
               </div>
             </motion.div>
           </motion.div>

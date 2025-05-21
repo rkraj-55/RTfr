@@ -1,77 +1,77 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Share2, 
-  UserPlus, 
-  MessageSquare, 
-  Globe, 
-  Code, 
-  Mail, 
-  Phone, 
-  Paintbrush, 
-  PhoneCall, 
-  Smartphone,
-  ArrowRight,
-  CheckCircle
-} from 'lucide-react';
+import {
+  ShareIcon,
+  UserPlusIcon,
+  ChatBubbleOvalLeftIcon,
+  GlobeAltIcon,
+  CodeBracketIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  PaintBrushIcon,
+  PhoneArrowUpRightIcon,
+  DevicePhoneMobileIcon,
+  ArrowRightIcon,
+  CheckCircleIcon
+} from '@heroicons/react/24/outline';
 
 const services = [
   {
-    icon: <Share2 className="h-8 w-8 text-white" />,
+    icon: <ShareIcon className="h-8 w-8 text-white" />,
     title: 'Social Media Marketing',
     description: 'Strategic social media campaigns that increase engagement and drive conversions.',
     features: ['Campaign Strategy', 'Content Creation', 'Community Management']
   },
   {
-    icon: <UserPlus className="h-8 w-8 text-white" />,
+    icon: <UserPlusIcon className="h-8 w-8 text-white" />,
     title: 'Lead Generation',
     description: 'Data-driven strategies to capture qualified leads for your business.',
     features: ['Landing Pages', 'Lead Nurturing', 'Conversion Optimization']
   },
   {
-    icon: <MessageSquare className="h-8 w-8 text-white" />,
+    icon: <ChatBubbleOvalLeftIcon className="h-8 w-8 text-white" />,
     title: 'SMS Marketing & SMPP',
     description: 'Direct communication channels with your audience through targeted SMS campaigns.',
     features: ['Bulk SMS', 'SMPP Integration', 'Campaign Analytics']
   },
   {
-    icon: <Globe className="h-8 w-8 text-white" />,
+    icon: <GlobeAltIcon className="h-8 w-8 text-white" />,
     title: 'Website Design',
     description: 'Custom, responsive websites that convert visitors into customers.',
     features: ['UI/UX Design', 'Responsive Development', 'SEO Optimization']
   },
   {
-    icon: <Code className="h-8 w-8 text-white" />,
+    icon: <CodeBracketIcon className="h-8 w-8 text-white" />,
     title: 'Full Stack Web App',
     description: 'End-to-end web application development with robust functionality.',
     features: ['Custom Development', 'API Integration', 'Cloud Deployment']
   },
   {
-    icon: <Mail className="h-8 w-8 text-white" />,
+    icon: <EnvelopeIcon className="h-8 w-8 text-white" />,
     title: 'Email Marketing',
     description: 'Personalized email campaigns that nurture leads and boost sales.',
     features: ['Campaign Automation', 'A/B Testing', 'Performance Analytics']
   },
   {
-    icon: <Phone className="h-8 w-8 text-white" />,
+    icon: <PhoneIcon className="h-8 w-8 text-white" />,
     title: 'Missed Call Service & IVR',
     description: 'Capture leads and provide information through missed call services.',
     features: ['IVR System', 'Call Analytics', 'Lead Capture']
   },
   {
-    icon: <Paintbrush className="h-8 w-8 text-white" />,
+    icon: <PaintBrushIcon className="h-8 w-8 text-white" />,
     title: 'Graphic Design',
     description: 'Eye-catching designs for ads, logos, brochures, and marketing materials.',
     features: ['Brand Identity', 'Marketing Materials', 'Social Media Graphics']
   },
   {
-    icon: <PhoneCall className="h-8 w-8 text-white" />,
+    icon: <PhoneArrowUpRightIcon className="h-8 w-8 text-white" />,
     title: 'Voice Call Services',
     description: 'Automated voice campaigns and customer service solutions.',
     features: ['Voice Broadcasting', 'Call Center Setup', 'IVR Integration']
   },
   {
-    icon: <Smartphone className="h-8 w-8 text-white" />,
+    icon: <DevicePhoneMobileIcon className="h-8 w-8 text-white" />,
     title: 'App Development',
     description: 'Custom mobile applications for Android, iOS, and cross-platform.',
     features: ['Native Apps', 'Cross-platform', 'App Store Publishing']
@@ -134,7 +134,7 @@ const ServicesSection: React.FC = () => {
                 <ul className="space-y-3 mb-6">
                   {service.features.map((feature, i) => (
                     <li key={i} className="flex items-center text-gray-300">
-                      <CheckCircle className="h-4 w-4 text-accent mr-2 flex-shrink-0" />
+                      <CheckCircleIcon className="h-4 w-4 text-accent mr-2 flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -147,7 +147,7 @@ const ServicesSection: React.FC = () => {
                     className="flex items-center justify-center gap-2 w-full py-3 px-6 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all duration-300 group/btn"
                   >
                     Learn More
-                    <ArrowRight className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRightIcon className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" />
                   </a>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { X } from 'lucide-react';
 
 const WhatsAppButton: React.FC = () => {
   const [isTooltipVisible, setTooltipVisible] = useState(false);
@@ -19,12 +20,11 @@ const WhatsAppButton: React.FC = () => {
             Chat with us on WhatsApp for quick support and inquiries!
           </p>
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/918434237052?text=Hello%2C%20Nextorra"
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-600 transition-colors"
           >
-            Start Chat
+            Chat with us
           </a>
         </div>
       )}
@@ -36,10 +36,10 @@ const WhatsAppButton: React.FC = () => {
       >
         {/* Ripple Effect */}
         <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
-        
+
         {/* Main Button */}
         <div className="relative bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-110">
-          <MessageCircle className="h-6 w-6" />
+          <FaWhatsapp className="h-6 w-6" />
         </div>
       </button>
     </div>

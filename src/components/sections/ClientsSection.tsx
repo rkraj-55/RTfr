@@ -5,34 +5,30 @@ import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    name: 'Rahul Sharma',
-    position: 'CEO, TechStart India',
-    image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    quote: 'Nextorra transformed our digital presence completely. Their strategic approach to social media and SEO increased our traffic by 200% in just three months.',
+    name: 'Rahul Kumar',
+    position: 'Founder, Nextorra',
+    quote: 'We are a small team focused on delivering honest and effective marketing solutions. Every project helps us learn and improve.',
     stars: 5
   },
   {
     id: 2,
-    name: 'Priya Patel',
-    position: 'Marketing Director, Fashionista',
-    image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    quote: 'Working with Nextorra has been a game-changer for our e-commerce business. Their lead generation campaigns have consistently delivered high-quality leads.',
+    name: 'Anita Sharma',
+    position: 'Freelance Consultant',
+    quote: 'Nextorra’s transparent approach gave me confidence as a small business owner starting online.',
     stars: 5
   },
   {
     id: 3,
-    name: 'Vikram Malhotra',
-    position: 'Founder, FoodExpress',
-    image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    quote: 'The website Nextorra built for us not only looks amazing but has significantly improved our conversion rates. Their ongoing support is exceptional.',
+    name: 'Sanjay Mehta',
+    position: 'Startup Enthusiast',
+    quote: 'They may be new, but their commitment and drive show great potential.',
     stars: 4
   },
   {
     id: 4,
-    name: 'Ananya Desai',
-    position: 'Small Business Owner',
-    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    quote: 'As a small business, I was hesitant about investing in marketing. Nextorra provided affordable solutions that delivered real results for my boutique.',
+    name: 'Priya Singh',
+    position: 'Local Boutique Owner',
+    quote: 'Honest advice and genuine effort helped me take the first steps in marketing my boutique.',
     stars: 5
   }
 ];
@@ -71,29 +67,8 @@ const ClientsSection: React.FC = () => {
           <p className="text-gray-600">See what our clients have to say about working with us</p>
         </motion.div>
         
-        {/* Client logos */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center flex-wrap gap-8 md:gap-16 mb-16"
-        >
-          {['TechVibe', 'CloudMatrix', 'Nexus', 'DataFlow', 'InnoTech'].map((company, index) => (
-            <motion.div
-              key={company}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="glass-effect px-8 py-4 rounded-xl flex items-center justify-center text-primary font-medium border border-primary/10"
-            >
-              {company}
-            </motion.div>
-          ))}
-        </motion.div>
-        
+        {/* Removed fake client logos */}
+
         {/* Testimonials */}
         <div className="relative">
           <motion.button 
@@ -135,21 +110,9 @@ const ClientsSection: React.FC = () => {
                   
                   <p className="text-gray-700 mb-6 italic relative z-10">"{testimonial.quote}"</p>
                   
-                  <div className="flex items-center gap-4">
-                    <div className="relative">
-                      <div className="w-14 h-14 rounded-full overflow-hidden">
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-30"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-gray-600 text-sm">{testimonial.position}</p>
-                    </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-gray-600 text-sm">{testimonial.position}</p>
                   </div>
                 </div>
               </motion.div>
