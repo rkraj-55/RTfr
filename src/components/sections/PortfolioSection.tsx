@@ -1,0 +1,186 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ExternalLink, Sparkles } from 'lucide-react';
+
+const categories = [
+  'All',
+  'Web Design',
+  'Marketing',
+  'Graphics',
+  'Apps'
+];
+
+const portfolioItems = [
+  {
+    id: 1,
+    title: 'E-commerce Redesign',
+    category: 'Web Design',
+    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Complete redesign with 40% conversion rate improvement',
+    tags: ['UI/UX', 'React', 'Node.js']
+  },
+  {
+    id: 2,
+    title: 'Fashion Brand Campaign',
+    category: 'Marketing',
+    image: 'https://images.pexels.com/photos/5935741/pexels-photo-5935741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: '300% ROI on social media ad spend',
+    tags: ['Social Media', 'Content Strategy', 'Analytics']
+  },
+  {
+    id: 3,
+    title: 'Tech Startup Branding',
+    category: 'Graphics',
+    image: 'https://images.pexels.com/photos/5473298/pexels-photo-5473298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Complete brand identity and marketing materials',
+    tags: ['Branding', 'Logo Design', 'Guidelines']
+  },
+  {
+    id: 4,
+    title: 'Fitness Tracking App',
+    category: 'Apps',
+    image: 'https://images.pexels.com/photos/4218883/pexels-photo-4218883.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: '50,000+ downloads in first month',
+    tags: ['React Native', 'Firebase', 'UX Design']
+  },
+  {
+    id: 5,
+    title: 'Restaurant Website',
+    category: 'Web Design',
+    image: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Responsive design with online ordering system',
+    tags: ['Next.js', 'Tailwind CSS', 'Stripe']
+  },
+  {
+    id: 6,
+    title: 'Product Catalog Design',
+    category: 'Graphics',
+    image: 'https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Print and digital catalog design',
+    tags: ['Adobe CC', 'Print Design', 'Digital']
+  }
+];
+
+const PortfolioSection: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  
+  const filteredItems = activeCategory === 'All'
+    ? portfolioItems
+    : portfolioItems.filter(item => item.category === activeCategory);
+
+  return (
+    <section className="section bg-gradient-to-b from-gray-50 to-white relative overflow-hidden" id="portfolio">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(30,64,175,0.05)_0%,transparent_100%)]"></div>
+      
+      <div className="container relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-12"
+        >
+          <span className="inline-block px-4 py-1.5 bg-accent/10 text-accent rounded-full text-sm font-medium mb-4">
+            <Sparkles className="h-4 w-4 inline-block mr-2" />
+            Featured Work
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Success Stories</h2>
+          <p className="text-gray-600 text-lg">Discover how we've helped businesses achieve their digital goals</p>
+        </motion.div>
+        
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((category, index) => (
+            <motion.button
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              className={`px-6 py-2.5 rounded-full transition-all duration-300 ${
+                activeCategory === category
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                  : 'bg-white/80 text-gray-700 hover:bg-white hover:shadow-md'
+              }`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </motion.button>
+          ))}
+        </div>
+        
+        {/* Portfolio Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative"
+              onMouseEnter={() => setHoveredItem(item.id)}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
+              <div className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-xl">
+                {/* Image Container */}
+                <div className="relative aspect-[16/12] overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-primary/90 transition-opacity duration-300 ${
+                    hoveredItem === item.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
+                          {item.category}
+                        </span>
+                        <ExternalLink className="h-5 w-5" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                      <p className="text-white/90 text-sm mb-4">{item.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {item.tags.map((tag, i) => (
+                          <span 
+                            key={i}
+                            className="text-xs bg-white/10 px-2 py-1 rounded"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mt-16"
+        >
+          <a 
+            href="#contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors duration-300 shadow-lg shadow-primary/20"
+          >
+            Start Your Project
+            <ExternalLink className="h-5 w-5" />
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default PortfolioSection;
