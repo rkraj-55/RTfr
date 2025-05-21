@@ -42,14 +42,14 @@ const Footer: React.FC = () => {
                 <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
                   <Phone className="h-5 w-5" />
                 </div>
-                <span>+91 9876543210</span>
+                <span>+91 8434237052</span>
               </a>
               
               <div className="flex items-center gap-3 text-gray-300 group">
                 <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
                   <MapPin className="h-5 w-5" />
                 </div>
-                <span>Mumbai, India</span>
+                <span>Jharkhand, India</span>
               </div>
             </div>
 
