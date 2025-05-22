@@ -1,7 +1,12 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Sparkles } from 'lucide-react';
-
+import projectImage from '../assets/image.png';
+import CamepineImage from "../assets/campeing_.png";
+import TechStartupImage from "../assets/Tech_Startup_Branding.png";
+import FitnessTrackerImage from "../assets/Fitness_tracking.png";
+import ResturantImage from "../assets/resturant.png";
+import CataLogProImage from "../assets/catalogPro.png";
 const categories = ['All', 'Web Design', 'Marketing', 'Graphics', 'Apps'];
 
 const portfolioItems = [
@@ -9,8 +14,7 @@ const portfolioItems = [
     id: 1,
     title: 'E-commerce Redesign',
     category: 'Web Design',
-    image:
-      'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: projectImage,
     description: 'Complete redesign with 40% conversion rate improvement',
     tags: ['UI/UX', 'React', 'Node.js'],
   },
@@ -18,8 +22,7 @@ const portfolioItems = [
     id: 2,
     title: 'Fashion Brand Campaign',
     category: 'Marketing',
-    image:
-      'https://images.pexels.com/photos/5935741/pexels-photo-5935741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: CamepineImage,
     description: '300% ROI on social media ad spend',
     tags: ['Social Media', 'Content Strategy', 'Analytics'],
   },
@@ -27,8 +30,7 @@ const portfolioItems = [
     id: 3,
     title: 'Tech Startup Branding',
     category: 'Graphics',
-    image:
-      'https://images.pexels.com/photos/5473298/pexels-photo-5473298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: TechStartupImage,
     description: 'Complete brand identity and marketing materials',
     tags: ['Branding', 'Logo Design', 'Guidelines'],
   },
@@ -36,8 +38,7 @@ const portfolioItems = [
     id: 4,
     title: 'Fitness Tracking App',
     category: 'Apps',
-    image:
-      'https://images.pexels.com/photos/4218883/pexels-photo-4218883.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image:FitnessTrackerImage,
     description: '50,000+ downloads in first month',
     tags: ['React Native', 'Firebase', 'UX Design'],
   },
@@ -45,8 +46,7 @@ const portfolioItems = [
     id: 5,
     title: 'Restaurant Website',
     category: 'Web Design',
-    image:
-      'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image:ResturantImage,
     description: 'Responsive design with online ordering system',
     tags: ['Next.js', 'Tailwind CSS', 'Stripe'],
   },
@@ -54,8 +54,7 @@ const portfolioItems = [
     id: 6,
     title: 'Product Catalog Design',
     category: 'Graphics',
-    image:
-      'https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image:CataLogProImage,
     description: 'Print and digital catalog design',
     tags: ['Adobe CC', 'Print Design', 'Digital'],
   },
