@@ -122,7 +122,7 @@ const Footer: React.FC = () => {
           {/* Quick Links */}
           <nav className="lg:col-span-2" aria-label="Quick Links">
             <h3 className="text-lg font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent select-none">Quick Links</h3>
-            <ul className="space-y-3 max-h-40 overflow-y-auto pr-2">
+            <ul className="space-y-3">
               {[
                 { name: "Home", id: "hero" },
                 { name: "About", id: "about" },
