@@ -37,7 +37,6 @@ const Footer: React.FC = () => {
       
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
-
           {/* Company Info */}
           <div className="lg:col-span-4">
             <button onClick={() => smoothScrollTo('hero')} className="flex items-center gap-4 mb-6 group">
@@ -129,10 +128,11 @@ const Footer: React.FC = () => {
                 { name: "Pricing", id: "pricing" },
                 { name: "Portfolio", id: "portfolio" },
                 { name: "Contact", id: "contact" },
+                { name: "Terms & Conditions", path: "/terms-and-conditions" },
               ].map((link, index) => (
                 <li key={index}>
                   <button
-                    onClick={() => smoothScrollTo(link.id)}
+                    onClick={() => link.path ? navigate(link.path) : smoothScrollTo(link.id)}
                     className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group w-full text-left"
                   >
                     <ArrowRightIcon className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
