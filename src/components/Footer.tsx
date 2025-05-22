@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   GlobeAltIcon,
   EnvelopeIcon,
@@ -11,17 +11,36 @@ import logo from "./assets/logo.svg";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const smoothScrollTo = (id: string) => {
+    if (location.pathname === '/') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <footer className="relative bg-gradient-to-b from-gray-900 to-primary-dark text-white pt-20 pb-8 overflow-hidden" aria-label="Site Footer">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,...')] opacity-5" aria-hidden="true"></div>
-
+      
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
 
           {/* Company Info */}
           <div className="lg:col-span-4">
-            <Link to="/" className="flex items-center gap-4 mb-6 group">
+            <button onClick={() => smoothScrollTo('hero')} className="flex items-center gap-4 mb-6 group">
               <div className="relative h-[100px] w-[100px] rounded-lg">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-lg animate-pulse" />
                 <div className="absolute inset-1 bg-white rounded-lg flex items-center justify-center overflow-hidden">
@@ -37,7 +56,7 @@ const Footer: React.FC = () => {
               <span className="text-4xl font-bold bg-gradient-to-r from-white via-indigo-500 to-cyan-400 bg-clip-text text-transparent select-none">
                 Nextorra
               </span>
-            </Link>
+            </button>
 
             <p className="text-gray-300 mb-8 max-w-md">
               Empowering businesses with innovative digital solutions that drive growth and deliver measurable results in an ever-evolving digital landscape.
@@ -105,17 +124,20 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent select-none">Quick Links</h3>
             <ul className="space-y-3 max-h-40 overflow-y-auto pr-2">
               {[
-                { name: "Home", path: "/" },
-                { name: "About", path: "/#about" },
-                { name: "Pricing", path: "/#pricing" },
-                { name: "Portfolio", path: "/#portfolio" },
-                { name: "Contact", path: "/#contact" },
+                { name: "Home", id: "hero" },
+                { name: "About", id: "about" },
+                { name: "Pricing", id: "pricing" },
+                { name: "Portfolio", id: "portfolio" },
+                { name: "Contact", id: "contact" },
               ].map((link, index) => (
                 <li key={index}>
-                  <Link to={link.path} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
+                  <button
+                    onClick={() => smoothScrollTo(link.id)}
+                    className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group w-full text-left"
+                  >
                     <ArrowRightIcon className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                     {link.name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -134,10 +156,13 @@ const Footer: React.FC = () => {
                 { name: "Graphic Design", path: "/services/graphic-design" },
               ].map((service, index) => (
                 <li key={index}>
-                  <Link to={service.path} className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
+                  <button
+                    onClick={() => navigate(service.path)}
+                    className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group w-full text-left"
+                  >
                     <ArrowRightIcon className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                     {service.name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
